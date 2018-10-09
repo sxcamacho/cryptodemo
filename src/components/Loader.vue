@@ -1,6 +1,7 @@
 <template>
     <div class="loader">
-        <span>{</span><span>}</span>
+        <span v-text="'{{'" />
+        <span v-text="'}}'" />
     </div>
 </template>
 
@@ -15,8 +16,9 @@ export default {
   color: #42b983;
   font-family: Consolas, Menlo, Monaco, monospace;
   font-weight: bold;
-  font-size: 30vh;
+  font-size: 10vh;
   opacity: 0.8;
+  text-align: center;
 }
 .loader span {
   display: inline-block;
