@@ -1,12 +1,26 @@
 <template>
     <div>
       <search :criteria="searchCriteria" @change="searchCriteriaChanged($event)" />
-      <button v-if="!searchCriteria && !loading && hasMoreCurrencies" class="btn btn-default btn-lg btn-block" @click="showMore">Load More</button>
+      <div class="page-limit-box">
+        <span>Page Limit:</span>
+        <select v-model="pageLimit">
+          <option v-for="index in 10" :key="index" :value="index * 10">
+            {{index * 10}}
+          </option>
+        </select>
+      </div>
+      <button
+        v-if="!searchCriteria && !loading && hasMoreCurrencies"
+        class="btn btn-default btn-lg btn-block"
+        @click="showMore"
+      >
+        Load More
+      </button>
       <div v-if="loading" class="loader-box">
         <loader />
       </div>
       <div class="list-box" v-if="!loading && filteredData">
-        <currency-list :currencies="filteredData" />
+        <currency-list :currencies="filteredData" :total="totalCurrencies"/>
       </div>
     </div>
 </template>
@@ -31,11 +45,10 @@ export default {
         metadata: {}
       },
       searchCriteria: "",
-      pageLimit: 2,
-      currentPage: 1
+      pageLimit: 10,
+      currentPage: 0
     };
   },
-
   methods: {
     searchCriteriaChanged(criteria) {
       this.searchCriteria = criteria;
@@ -71,13 +84,17 @@ export default {
     }
   },
   computed: {
+    totalCurrencies() {
+      return this.searchCriteria
+        ? this.filteredData.length
+        : this.marketData.metadata.num_cryptocurrencies;
+    },
     hasMoreCurrencies() {
-      // return (
-      //   this.marketData.data &&
-      //   this.marketData.data.lenth <
-      //     this.marketData.metadata.num_cryptocurrencies
-      // );
-      return true;
+      return (
+        this.marketData.data &&
+        this.marketData.data.length <
+          this.marketData.metadata.num_cryptocurrencies
+      );
     },
     nextPageFrom: function() {
       return this.pageLimit * this.currentPage + 1;
@@ -100,6 +117,16 @@ export default {
       }
     }
   },
+  watch: {
+    pageLimit: function() {
+      this.marketData = {
+        data: [],
+        metadata: {}
+      };
+      this.currentPage = 0;
+      this.loadCurrencies();
+    }
+  },
   mounted() {
     this.loadCurrencies();
   }
@@ -118,6 +145,24 @@ export default {
   padding: 30px;
   width: calc(100% - 20px);
   margin: 40px auto;
+}
+.page-limit-box {
+  padding: 10px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: flex-end;
+}
+.page-limit-box select {
+  font-size: 30px;
+  padding: 20px;
+  width: 20%;
+  min-width: 200px;
+  border: 1px solid #eee;
+  background-color: #fff;
+}
+.page-limit-box span {
+  font-size: 30px;
+  margin-right: 20px;
 }
 </style>
 

@@ -2,7 +2,7 @@
   <div v-if="currencyData">
     <div class="row text-center margin-top-60">
       <div class="col-xs-12">
-        <currency-logo :currencyId="currencyId" />
+        <currency-logo :currencyId="currencyId" :size="'128x128'"/>
       </div>
     </div>
     <div class="row text-center">
@@ -16,7 +16,7 @@
             <table class="table table-bordered">
               <tbody>
                 <!-- GENERAL -->
-                <tr v-for="(value, key, index) in currencyData" :key="index">
+                <tr v-for="(value, key, index) in currencyData" :key="`general-${index}`">
                   <template v-if="key !== 'quotes'">
                     <td>{{key | prettyKey}}</td>
                     <td>{{value}}</td>
@@ -24,7 +24,7 @@
                 </tr>
                 <!-- USD -->
                 <tr><td colspan="2" class="text-center bg-warning">USD</td></tr>
-                <tr v-for="(value, key, index) in currencyData.quotes.USD" :key="index">
+                <tr v-for="(value, key, index) in currencyData.quotes.USD" :key="`usd-${index}`">
                   <template v-if="key !== 'quotes'">
                     <td>{{key | prettyKey}}</td>
                     <td>{{value}}</td>
@@ -32,7 +32,7 @@
                 </tr>
                 <!-- BTC -->
                 <tr><td colspan="2" class="text-center bg-warning">BTC</td></tr>
-                <tr v-for="(value, key, index) in currencyData.quotes.BTC" :key="index">
+                <tr v-for="(value, key, index) in currencyData.quotes.BTC" :key="`btc-${index}`">
                   <template v-if="key !== 'quotes'">
                     <td>{{key | prettyKey}}</td>
                     <td>{{value}}</td>
@@ -66,12 +66,12 @@ export default {
   data() {
     return {
       currencyId: 0,
-      currencyData: {}
+      currencyData: undefined
     };
   },
   filters: {
     prettyKey: value => {
-      var result = value.replace(new RegExp("_", "g"), " ");
+      let result = value.replace(new RegExp("_", "g"), " ");
       return result.replace(/\b\w/g, function(l) {
         return l.toUpperCase();
       });

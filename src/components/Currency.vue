@@ -1,7 +1,7 @@
 <template>
   <router-link tag="div" class="currency-box" :to="{ name: 'Detail', params: { id: currency.id }}">
     <div class="title">{{currency.name}} ({{currency.symbol}})</div>
-    <currency-logo :currencyId="currency.id" />
+    <currency-logo :currencyId="currency.id" :size="'64x64'"/>
   </router-link>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 .currency-box {
-  height: 300px;
+  height: 250px;
   padding: 30px;
   text-align: center;
   background-color: #eee;
@@ -30,7 +30,7 @@ export default {
 
 .title {
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   padding: 10px;
   font-weight: bold;
 }

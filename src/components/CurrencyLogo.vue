@@ -1,13 +1,15 @@
 <template>
-    <img class="logo" :src="getCurrencyIcon(currencyId)"/>
+    <img class="logo" :src="currencyImage"/>
 </template>
 
 <script>
 export default {
-  props: ["currencyId"],
-  methods: {
-    getCurrencyIcon(currencyId) {
-      return `https://s2.coinmarketcap.com/static/img/coins/128x128/${currencyId}.png`;
+  props: ["currencyId", "size"],
+  computed: {
+    currencyImage() {
+      return `https://s2.coinmarketcap.com/static/img/coins/${this.size}/${
+        this.currencyId
+      }.png`;
     }
   }
 };
