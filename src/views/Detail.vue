@@ -9,6 +9,9 @@
       <div class="col-xs-12">
         <h1>{{currencyData.name}}</h1>
       </div>
+      <div class="col-xs-12">
+        <h3>{{currencyData.symbol}}</h3>
+      </div>
     </div>
     <div class="row margin-top-60">
         <div class="col-xs-12">

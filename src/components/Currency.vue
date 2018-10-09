@@ -18,8 +18,8 @@ export default {
 
 <style scoped>
 .currency-box {
-  height: 250px;
-  padding: 30px;
+  height: 200px;
+  padding: 10px;
   text-align: center;
   background-color: #eee;
   border: 1px solid #ddd;
@@ -33,6 +33,7 @@ export default {
   font-size: 20px;
   padding: 10px;
   font-weight: bold;
+  height: 70px;
 }
 
 .logo {

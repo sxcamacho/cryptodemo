@@ -153,7 +153,7 @@ export default {
   justify-content: flex-end;
 }
 .page-limit-box select {
-  font-size: 30px;
+  font-size: 25px;
   padding: 20px;
   width: 20%;
   min-width: 200px;
@@ -161,7 +161,7 @@ export default {
   background-color: #fff;
 }
 .page-limit-box span {
-  font-size: 30px;
+  font-size: 22px;
   margin-right: 20px;
 }
 </style>
